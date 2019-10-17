@@ -9,7 +9,7 @@ import numpy as np
 class SegmentationNet():
     def __init__(self):
         torch.cuda.set_device(0)
-        self.model_path = "./model_segmentation.pth.tar"
+        self.model_path = "/content/drive/My Drive/DeepDRR/model_segmentation.pth.tar"
         self.model = VNet()
         self.model = self.model.cuda()
         self.model.load_state_dict(torch.load(self.model_path)['state_dict'])
