@@ -57,7 +57,7 @@ class SegmentationNet():
                     presegmentation[3, :, :, :] = curren_block < (-500-mean)/std
                     curren_block_tensor = torch.from_numpy(presegmentation).cuda()
                     curren_block_tensor = torch.unsqueeze(curren_block_tensor,0)
-                    tmp1 = Variable(curren_block_tensor,requires_grad = False)
+                    tmp1 = Variable(curren_block_tensor.cpu(),requires_grad = False)
                     tmp1cpu = tmp1.cpu()
                     tmp = self.model.forward(tmp1cpu)
                     tmpcpu = tmp.cpu()
