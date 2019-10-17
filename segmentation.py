@@ -55,6 +55,8 @@ class SegmentationNet():
                     presegmentation[1, :, :, :] = curren_block >= (200-mean)/std
                     presegmentation[2, :, :, :] = (curren_block < (200-mean)/std) * (curren_block >= (-500-mean)/std)
                     presegmentation[3, :, :, :] = curren_block < (-500-mean)/std
+                    curren_block_tensor = torch.from_numpy(presegmentation).cuda()
+                    curren_block_tensor = torch.unsqueeze(curren_block_tensor,0)
                     tmp = Variable(curren_block_tensor.cpu(),requires_grad = False)
                     output_tensor = np.array(self.model.forward(tmp).cpu().data)
                     segmented_volume[:,i*blocksize:(i+1)*blocksize,j*blocksize:(j+1)*blocksize,k*blocksize:(k+1)*blocksize] = output_tensor[0,:,:,:,:]
