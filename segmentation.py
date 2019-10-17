@@ -59,9 +59,9 @@ class SegmentationNet():
                     curren_block_tensor = torch.unsqueeze(curren_block_tensor,0)
                     curren_block_tensor = curren_block_tensor.cpu()
                     tmp1 = Variable(curren_block_tensor,requires_grad = False)
-                    tmp1cpu = tmp1.cpu()
-                    tmp2 = self.model.forward(tmp1cpu)
-                    output_tensor = np.array(tmp2.data)
+                    tmp2 = self.model.forward(tmp1)
+                    tmp2cpu = tmp2.cpu()
+                    output_tensor = np.array(tmp2cpu.data)
                     segmented_volume[:,i*blocksize:(i+1)*blocksize,j*blocksize:(j+1)*blocksize,k*blocksize:(k+1)*blocksize] = output_tensor[0,:,:,:,:]
         segmented_volume = segmented_volume[:,offset_before[0]:input_volume.shape[0]+offset_before[0],offset_before[1]:input_volume.shape[1]+offset_before[1],offset_before[2]:input_volume.shape[2]+offset_before[2]]
 
